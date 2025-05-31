@@ -1,0 +1,76 @@
+/**:
+  # Global Parameters
+  ros__parameters:
+    tf_timeout_threshold: 0.05
+
+/**:
+  # Basic Robotics Functions
+  # Platform
+  platform:
+    ros__parameters:
+      # Flow deck & Lighthouse
+      external_odom: false
+      # # Motion Capture
+      # external_odom: true
+      # external_odom_topic: "self_localization/pose"
+      # multi_ranger_deck: true  # Availability of multi ranger deck
+      led_deck: true
+
+
+  # State Estimator
+  state_estimator:
+    ros__parameters:
+      # Flow deck & Lighthouse
+      plugin_name: "raw_odometry"
+      # # Motion Capture
+      # plugin_name: "mocap_pose"
+      # mocap_topic: "/mocap/rigid_bodies"
+      # twist_smooth_filter_cte: 0.1
+      # orientation_smooth_filter_cte: 0.1
+
+  # Behaviors Motion
+  TakeoffBehavior:
+    ros__parameters:
+      # takeoff_plugin_name: "takeoff_plugin_speed"
+      takeoff_plugin_name: "takeoff_plugin_position"
+      # takeoff_plugin_name: "takeoff_plugin_trajectory"
+  LandBehavior:
+    ros__parameters:
+      land_plugin_name: "land_plugin_speed"
+      # land_plugin_name: "land_plugin_trajectory"
+  GoToBehavior:
+    ros__parameters:
+      go_to_plugin_name: "go_to_plugin_position"
+      # go_to_plugin_name: "go_to_plugin_trajectory"
+  FollowPathBehavior:
+    ros__parameters:
+      follow_path_plugin_name: "follow_path_plugin_position"
+      # follow_path_plugin_name: "follow_path_plugin_trajectory"
+
+# Specific Parameters for each drone
+drone0:
+  platform:
+    ros__parameters:
+      uri: radio://0/85/2M/E7E7E7E701
+  # # Motion Capture
+  # state_estimator:
+  #   ros__parameters:
+  #     rigid_body_name: "1"
+  # # Aideck
+  # aideck_pub:
+  #   ros__parameters:
+  #     cam:
+  #       ip: "192.168.0.109"
+  #       port: 5000
+  #     calibration_file: "config/camera_calibration.yaml"
+
+drone1:
+  platform:
+    ros__parameters:
+      uri: radio://0/85/2M/E7E7E7E702
+
+drone2:
+  platform:
+    ros__parameters:
+      uri: radio://0/85/2M/E7E7E7E703
+

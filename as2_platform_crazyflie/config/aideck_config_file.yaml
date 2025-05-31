@@ -1,0 +1,10 @@
+/**:
+  ros__parameters:
+    cam:
+      ip: "192.168.4.1" # IP address of the aideck
+      port: 5000 # Port of the aideck
+      save_flag: false # Save the data in a file
+      show_flag: false # Show the data in a plot
+      verbose: false # Show more info
+      balance_color: false # Balance the color
+      flip_image: false # Flip the image if needed

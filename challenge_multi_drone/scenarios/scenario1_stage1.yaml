@@ -1,0 +1,13 @@
+drone_start_pose:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+name: scenario1
+stage_size: [10.0, 10.0]
+stage1:
+  stage_center: [0.0, 0.0]
+  trajectory:
+    diameter: 3.0
+  formations: ["line", "v", "square", "orbit", "grid", "staggered", "columnN", "free"]
+
+

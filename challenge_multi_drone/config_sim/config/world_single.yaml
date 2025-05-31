@@ -1,0 +1,13 @@
+world_name: "empty_visual"
+origin: 
+    latitude: 40.4405287
+    longitude: -3.6898277
+    altitude: 100.0
+drones:
+  - model_type: "crazyflie_led_ring" # "quadrotor_base" also works if you want a bigger drone
+    model_name: "drone0"
+    flight_time: 60
+    xyz:
+      - 0.0
+      - 0.0
+      - 0.3

@@ -1,0 +1,46 @@
+/**:
+  platform:
+    ros__parameters:
+      cmd_freq: 100.0  # Hz of platform commands send
+      info_freq: 10.0  # Hz of platform info publish
+      external_odom: false  # Availability of external odometry
+      external_odom_topic: "external_odom" # External odometry topic name
+      controller_type: 1  # Controller type Any(0), PID(1), Mellinger(2), INDI(3)
+      estimator_type: 2 # Estimator type Any(0), complementary(1), kalman(2)
+      multi_ranger_deck: false  # Availability of multi ranger deck
+  aideck_pub:
+    ros__parameters:
+      cam:
+        save_flag: false # Save the data in a file
+        show_flag: false # Show the data in a plot
+        verbose: false # Show more info
+        balance_color: false # Balance the color
+        flip_image: false # Flip image 
+
+/cf1:
+  platform:
+    ros__parameters:
+      uri: "radio://0/33/2M/E7E7E7AAAC"
+  aideck_pub:
+    ros__parameters:
+      cam:
+        ip: "192.168.0.109"
+        port: 5000   
+        calibration_file: "camera_calibration.yaml"
+
+# /cf2:
+#   platform:
+#     ros__parameters:
+#       uri: "radio://0/33/2M/E7E7E7AAAB"
+
+# /cf3:
+#   platform:
+#     ros__parameters:
+#       uri: "radio://0/33/2M/E7E7E7AAAC"
+#   aideck_pub:
+#     ros__parameters:
+#       cam:
+#         ip: "192.168.4.1"
+#         port: 5000   
+#         calibration_file: "camera_calibration.yaml"
+

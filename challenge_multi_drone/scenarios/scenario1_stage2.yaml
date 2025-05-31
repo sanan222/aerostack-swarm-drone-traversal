@@ -1,0 +1,22 @@
+drone_start_pose:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+name: scenario1
+stage_size: [10.0, 10.0]
+stage2:
+  stage_center: [0.0, -6.0]
+  room_height: 5.0
+  windows:
+    1:
+      center: [-0.5, 1.5] # y, x
+      gap_width: 2.0
+      distance_floor: 1.0
+      height: 2.0
+      thickness: 0.3
+    2:
+      center: [1.0, -2.5]
+      gap_width: 1.0
+      distance_floor: 3.0
+      height: 1.5
+      thickness: 0.5

@@ -1,0 +1,24 @@
+/**:
+  ros__parameters:
+    simulation:
+      update_freq: 1000.0  # Hz (default: 1000.0)
+      control_freq: 100.0  # Hz (default: 100.0)
+      inertial_odometry_freq: 1000.0  # Hz (default: 1000.0)
+    use_odom_for_control: false  # Use odometry for control instead of ground truth (default: false)
+    cmd_freq: 100.0  # Hz (default: 100.0)
+    info_freq: 10.0  # Hz (default: 10.0)
+    global_ref_frame: "earth"  # (default: earth)
+    odom_frame: "odom"  # (default: odom)
+    base_frame: "base_link"  # (default: base_link)
+    imu_pub_freq: 100.0  # Hz (default: 100.0)
+    odometry_pub_freq: 100.0  # Hz (default: 100.0)
+    ground_truth_pub_freq: 60.0  # Hz (default: 60.0)
+    gps_pub_freq: 30.0  # Hz (default: 60.0)
+    gimbal:
+      pub_freq: 30.0  # Hz (default: 1.0)
+      base_frame_id: "gimbal_base"  # (default: "gimbal_base")
+      frame_id: "gimbal"  # (default: "gimbal_base")
+      base_transform: 
+        x: 0.0  # Gimbal base x position in base_link frame. Meters (default: 0.0)
+        y: 0.0  # Gimbal base y position in base_link frame. Meters (default: 0.0)
+        z: 0.0  # Gimbal base z position in base_link frame. Meters (default: 0.0)

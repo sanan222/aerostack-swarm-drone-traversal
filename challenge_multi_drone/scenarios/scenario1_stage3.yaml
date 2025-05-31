@@ -1,0 +1,21 @@
+drone_start_pose:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+name: scenario1
+stage_size: [10.0, 10.0]
+stage3:
+  stage_center: [0.0, -6.0]
+  start_point: [-4.0, 0.0] # Relative to stage center
+  end_point: [4.0, 0.0] # Relative to stage center
+  obstacle_height: 5.0
+  obstacle_diameter: 0.4  
+  obstacles:
+    - [2.0, 0.0]
+    - [1.0, -3.0]
+    - [2.0, -1.0]
+    - [0.0, 2.0]
+    - [-1.0, -3.0]
+    - [0.0, 0.0]
+    - [-2.0, 2.0]
+

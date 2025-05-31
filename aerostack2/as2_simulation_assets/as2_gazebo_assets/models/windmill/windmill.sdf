@@ -1,0 +1,216 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.6">
+    <model name='windmill'>
+        <pose>0 0 0 0 0 0</pose>
+        <link name='tower_link'>
+            <pose>0 0 0 0 -0 0</pose>
+            <static>true</static>
+            <visual name="Tower">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/tower.dae</uri>
+                    <submesh>
+                    <name>Tower</name>
+                    </submesh>
+                </mesh>
+                </geometry>
+                <material>
+                <diffuse>1.0 1.0 1.0 1.0</diffuse>
+                <specular>1.0 1.0 1.0 1.0</specular>
+                <metal>
+                    <albedo_map>model://windmill/meshes/Plastic010_1K_Displacement.jpg</albedo_map>
+                </metal>
+                </material>
+            </visual>
+            <collision name="collision">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/tower.dae</uri>
+                </mesh>
+                </geometry>
+                <surface/>
+                <contact/>
+                <collide_bitmask>0x01</collide_bitmask>
+            </collision>
+        </link>
+        <link name='motor_link'>
+            <pose>0 0 25.41 0 0 0</pose>
+            <visual name="Rotor">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/rotor.dae</uri>
+                    <submesh>
+                    <name>Rotor</name>
+                    </submesh>
+                </mesh>
+                </geometry>
+                <material>
+                <diffuse>1.0 1.0 1.0 1.0</diffuse>
+                <specular>1.0 1.0 1.0 1.0</specular>
+                <pbr>
+                    <metal>
+                    <albedo_map>model://windmill/meshes/Plastic010_1K_Displacement.jpg</albedo_map>
+                    </metal>
+                </pbr>
+                </material>
+            </visual>
+            <collision name="collision">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/rotor.dae</uri>
+                </mesh>
+                </geometry>
+                <surface/>
+                <contact/>
+                <collide_bitmask>0x01</collide_bitmask>
+            </collision>
+        </link> 
+        <joint name='motor_link_joint' type='revolute'>
+            <child>motor_link</child>
+            <parent>tower_link</parent>
+            <axis>
+            	<xyz expressed_in='__model__'>0 0 1</xyz>
+            	<!-- <dynamics>
+            		<friction>0.5</friction>
+            	</dynamics>		 -->
+            </axis>
+        </joint>
+        <link name="blades_link">
+            <pose>0.005 -0.75 25.98 0 0 0</pose>
+            <visual name="Blades">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/blades.dae</uri>
+                    <submesh>
+                    <name>Blades</name>
+                    </submesh>
+                </mesh>
+                </geometry>
+                <material>
+                    <ambient>1 1 1 1</ambient>
+                    <diffuse>1.0 1.0 1.0 1.0</diffuse>
+                    <specular>1.0 1.0 1.0 1.0</specular>
+                    <pbr>
+                        <metal>
+                            <albedo_map>model://windmill/meshes/Plastic010_1K_Displacement.jpg</albedo_map>
+                        </metal>
+                    </pbr>
+                </material>
+            </visual>
+            <collision name="collision">
+                <geometry>
+                <mesh>
+                    <uri>model://windmill/meshes/blades.dae</uri>
+                </mesh>
+                </geometry>
+                <surface/>
+                <contact/>
+                <collide_bitmask>0x01</collide_bitmask>
+            </collision>
+        </link>
+        <joint name='blades_link_joint' type='revolute'>
+            <child>blades_link</child>
+            <parent>motor_link</parent>
+            <axis>
+            <xyz expressed_in='__model__'>0 1 0</xyz>
+            </axis>
+        </joint>
+        <include>
+            <name>gps</name>
+            <uri>model://gps</uri>
+            <pose relative_to="motor_link">
+                0 0 0 0 0 -1.57
+            </pose>
+            <plugin
+                filename="ignition-gazebo-odometry-publisher-system"
+                name="ignition::gazebo::systems::OdometryPublisher">
+                <dimensions>3</dimensions>
+                <odom_publish_frequency>100</odom_publish_frequency>
+            </plugin>
+        </include>
+
+        <model name="debug_viz">
+            <pose relative_to="blades_link">
+                0.0 0.0 0.0 0 0 -1.57
+            </pose>
+            <link name='debug_viz_link'>
+                <visual name="debug_viz">
+                    <geometry>
+                        <box>
+                            <size>0.25 0.25 0.25</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0 0 0 1</ambient>
+                        <diffuse>0 0 0 1</diffuse>
+                        <specular>0 0 0 0</specular>
+                        <emissive>0 1 0 1</emissive>
+                    </material>
+                </visual>
+            </link>
+            <plugin filename="ignition-gazebo-pose-publisher-system"
+            name="ignition::gazebo::systems::PosePublisher">
+                <publish_link_pose>false</publish_link_pose>
+                <publish_collision_pose>false</publish_collision_pose>
+                <publish_visual_pose>false</publish_visual_pose>
+                <publish_nested_model_pose>true</publish_nested_model_pose>
+                <publish_model_pose>true</publish_model_pose>
+                <use_pose_vector_msg>false</use_pose_vector_msg>
+                <static_publisher>false</static_publisher>
+                <update_frequency>10</update_frequency>
+            </plugin>
+        </model>
+        <joint name="debug_viz_joint" type="fixed">
+            <parent>blades_link</parent>
+            <child>debug_viz::debug_viz_link</child>
+        </joint>
+
+        <joint name="gps_joint" type="fixed">
+            <parent>motor_link</parent>
+            <child>gps</child>
+        </joint>
+        <joint name="world_to_base_link=" type="fixed">
+            <parent>world</parent>
+            <child>tower_link</child>
+        </joint>
+        <plugin
+            filename="ignition-gazebo-joint-controller-system"
+            name="ignition::gazebo::systems::JointController">
+            <joint_name>motor_link_joint</joint_name>
+            <use_force_commands>true</use_force_commands>
+            <i_gain>0.0</i_gain>
+        </plugin>
+        <plugin
+            filename="ignition-gazebo-joint-controller-system"
+            name="ignition::gazebo::systems::JointController">
+            <joint_name>blades_link_joint</joint_name>
+            <use_force_commands>true</use_force_commands>
+            <i_gain>0.0</i_gain>
+        </plugin>
+        <plugin
+        filename="libignition-gazebo-joint-state-publisher-system"
+        name="ignition::gazebo::systems::JointStatePublisher"></plugin>
+        <plugin
+        filename="ignition-gazebo-apply-joint-force-system"
+        name="ignition::gazebo::systems::ApplyJointForce">
+        <joint_name>blades_link_joint</joint_name>
+        </plugin>
+        <plugin
+        filename="ignition-gazebo-apply-joint-force-system"
+        name="ignition::gazebo::systems::ApplyJointForce">
+        <joint_name>motor_link_joint</joint_name>
+        </plugin>
+        <plugin filename="ignition-gazebo-pose-publisher-system"
+            name="ignition::gazebo::systems::PosePublisher">
+            <publish_link_pose>true</publish_link_pose>
+            <publish_collision_pose>false</publish_collision_pose>
+            <publish_visual_pose>false</publish_visual_pose>
+            <publish_nested_model_pose>true</publish_nested_model_pose>
+            <publish_model_pose>true</publish_model_pose>
+            <use_pose_vector_msg>true</use_pose_vector_msg>
+            <static_publisher>false</static_publisher>
+            <update_frequency>100</update_frequency>
+        </plugin>
+    </model>
+</sdf>
